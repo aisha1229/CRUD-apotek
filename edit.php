@@ -28,34 +28,41 @@ if(isset($_POST['update'])){
 <html>
 <head>
 <title>Edit Obat</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>Edit Data Obat</h2>
+<div class="card">
+    <h2>✏️ Edit Data Obat</h2>
 
-<form method="POST">
-Kode Obat <br>
-<input type="text" name="kode" value="<?= $row['kode_obat']; ?>"><br><br>
+    <form method="POST">
+        Kode Obat
+        <input type="text" name="kode" 
+               value="<?= $row['kode_obat']; ?>" required>
 
-Nama Obat <br>
-<input type="text" name="nama" value="<?= $row['nama_obat']; ?>"><br><br>
+        Nama Obat
+        <input type="text" name="nama" 
+               value="<?= $row['nama_obat']; ?>" required>
 
-Kategori <br>
-<select name="kategori">
-<option <?= $row['kategori']=="Tablet"?"selected":""; ?>>Tablet</option>
-<option <?= $row['kategori']=="Sirup"?"selected":""; ?>>Sirup</option>
-<option <?= $row['kategori']=="Kapsul"?"selected":""; ?>>Kapsul</option>
-<option <?= $row['kategori']=="Salep"?"selected":""; ?>>Salep</option>
-</select><br><br>
+        Kategori
+        <select name="kategori">
+            <option value="Tablet" <?= $row['kategori']=="Tablet"?"selected":""; ?>>Tablet</option>
+            <option value="Sirup" <?= $row['kategori']=="Sirup"?"selected":""; ?>>Sirup</option>
+            <option value="Kapsul" <?= $row['kategori']=="Kapsul"?"selected":""; ?>>Kapsul</option>
+            <option value="Salep" <?= $row['kategori']=="Salep"?"selected":""; ?>>Salep</option>
+        </select>
 
-Stok <br>
-<input type="number" name="stok" value="<?= $row['stok']; ?>"><br><br>
+        Stok
+        <input type="number" name="stok" 
+               value="<?= $row['stok']; ?>" required>
 
-Harga <br>
-<input type="number" name="harga" value="<?= $row['harga']; ?>"><br><br>
+        Harga
+        <input type="number" name="harga" 
+               value="<?= $row['harga']; ?>" required>
 
-<button type="submit" name="update">Update</button>
-</form>
+        <button type="submit" name="update">💾 Update Data</button>
+    </form>
+</div>
 
 </body>
 </html>
