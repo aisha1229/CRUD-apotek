@@ -1,6 +1,9 @@
 <?php
 include 'koneksi.php';
-$data = mysqli_query($koneksi, "SELECT * FROM obat");
+
+// Ambil semua data obat (PDO)
+$stmt = $pdo->query("SELECT * FROM obat ORDER BY id DESC");
+$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -26,13 +29,13 @@ $data = mysqli_query($koneksi, "SELECT * FROM obat");
         <th>Aksi</th>
     </tr>
 
-    <?php $no = 1; while($row = mysqli_fetch_assoc($data)) { ?>
+    <?php $no = 1; foreach($data as $row) { ?>
     <tr>
         <td><?= $no++; ?></td>
-        <td><?= $row['kode_obat']; ?></td>
-        <td><?= $row['nama_obat']; ?></td>
-        <td><?= $row['kategori']; ?></td>
-        <td><?= $row['stok']; ?></td>
+        <td><?= htmlspecialchars($row['kode_obat']); ?></td>
+        <td><?= htmlspecialchars($row['nama_obat']); ?></td>
+        <td><?= htmlspecialchars($row['kategori']); ?></td>
+        <td><?= htmlspecialchars($row['stok']); ?></td>
         <td>Rp <?= number_format($row['harga'], 0, ',', '.'); ?></td>
         <td>
             <a href="edit.php?id=<?= $row['id']; ?>">Edit</a> |

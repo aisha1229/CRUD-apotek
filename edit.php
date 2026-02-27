@@ -1,26 +1,35 @@
 <?php
 include 'koneksi.php';
+
 $id = $_GET['id'];
 
-$data = mysqli_query($koneksi, "SELECT * FROM obat WHERE id='$id'");
-$row = mysqli_fetch_assoc($data);
+$stmt = $pdo->prepare("SELECT * FROM obat WHERE id = :id");
+$stmt->execute([':id' => $id]);
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if(isset($_POST['update'])){
-    $kode = $_POST['kode'];
-    $nama = $_POST['nama'];
-    $kategori = $_POST['kategori'];
-    $stok = $_POST['stok'];
-    $harga = $_POST['harga'];
 
-    mysqli_query($koneksi, "UPDATE obat SET
-        kode_obat='$kode',
-        nama_obat='$nama',
-        kategori='$kategori',
-        stok='$stok',
-        harga='$harga'
-        WHERE id='$id'");
+    $sql = "UPDATE obat SET
+            kode_obat = :kode,
+            nama_obat = :nama,
+            kategori = :kategori,
+            stok = :stok,
+            harga = :harga
+            WHERE id = :id";
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+        ':kode' => $_POST['kode'],
+        ':nama' => $_POST['nama'],
+        ':kategori' => $_POST['kategori'],
+        ':stok' => $_POST['stok'],
+        ':harga' => $_POST['harga'],
+        ':id' => $id
+    ]);
 
     header("Location: index.php");
+    exit;
 }
 ?>
 
